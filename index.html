@@ -32,10 +32,11 @@
     <link href="css/style-home3.css" rel="stylesheet" type="text/css" />
     <!-- custom css -->
     <!-- end theme style -->
+    <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
   </head>
   <!-- end head -->
   <!--body start-->
-  <body>
+  <body x-data="load()" x-init="onInit()">
     <!-- preloader -->
     <div class="preloader">
       <div class="status">
@@ -152,10 +153,9 @@
                 style="display: flex; justify-content: center; top: 13px"
               >
                 <a
-                  href="#"
-                  class="btn btn-default pull-right"
-                  data-toggle="modal"
-                  data-target="#request-model"
+                  @click="openCotizaModal"
+                  style="cursor: pointer;"
+                  class="btn btn-default"
                 >
                   Cotiza ahora
                 </a>
@@ -181,12 +181,14 @@
                 </h5>
               </div>
               <div class="modal-body request-model-body text-center">
-                <form>
+                <form @submit.prevent="sendFormCotiza()">
                   <div class="form-group">
                     <input
                       type="text"
                       class="form-control"
                       id="name"
+                      required
+                      x-model="formCotiza.name"
                       placeholder="Nombres"
                     />
                   </div>
@@ -195,6 +197,8 @@
                       type="number"
                       class="form-control"
                       id="dni"
+                      x-model="formCotiza.dni"
+                      required
                       placeholder="DNI"
                     />
                   </div>
@@ -203,6 +207,8 @@
                       type="number"
                       class="form-control"
                       id="tel"
+                      x-model="formCotiza.phone"
+                      required
                       placeholder="Teléfono"
                     />
                   </div>
@@ -212,6 +218,8 @@
                       class="form-control"
                       id="subject"
                       placeholder="Correo elect."
+                      x-model="formCotiza.email"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -220,6 +228,8 @@
                       name="message"
                       rows="6"
                       placeholder="Detalle del servicio"
+                      x-model="formCotiza.detail"
+                      required
                     ></textarea>
                   </div>
                   <button type="submit" class="btn btn-default">
@@ -252,9 +262,8 @@
               la investigación, diseño y desarrollo de materiales.
             </h5>
             <a
-              href="#"
-              data-toggle="modal"
-              data-target="#request-model"
+              @click="openCotizaModal"
+              style="cursor: pointer;"
               class="btn btn-default"
             >
               Cotiza ahora
@@ -279,9 +288,8 @@
               la investigación, diseño y desarrollo de materiales.
             </h5>
             <a
-              href="#"
-              data-toggle="modal"
-              data-target="#request-model"
+              @click="openCotizaModal"
+              style="cursor: pointer;"
               class="btn btn-default"
             >
               Cotiza ahora
@@ -678,7 +686,7 @@
                 servicios. ¡Esperamos poder servirle!
               </p>
             </div>
-            <form class="contact-form" method="post" action="contact-us.php">
+            <form @submit.prevent="sendFormContact()" class="contact-form" method="post">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
@@ -690,6 +698,7 @@
                       type="text"
                       class="form-control"
                       id="name-contact"
+                      x-model="formContact.name"
                       placeholder=""
                       required
                     />
@@ -701,6 +710,8 @@
                       class="form-control"
                       id="phone-contact"
                       placeholder=""
+                      x-model="formContact.phone"
+                      required
                     />
                   </div>
                 </div>
@@ -715,6 +726,7 @@
                       class="form-control"
                       id="email-contact"
                       placeholder=""
+                      x-model="formContact.email"
                       required
                     />
                   </div>
@@ -725,6 +737,8 @@
                       class="form-control"
                       id="cmy-name"
                       placeholder=""
+                      x-model="formContact.company"
+                      required
                     />
                   </div>
                 </div>
@@ -736,6 +750,8 @@
                       class="form-control"
                       id="subject-contact"
                       placeholder=""
+                      x-model="formContact.subject"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -744,6 +760,8 @@
                       class="form-control"
                       id="message-contact"
                       placeholder=""
+                      x-model="formContact.message"
+                      required
                     ></textarea>
                   </div>
                 </div>
@@ -939,6 +957,8 @@
     <script type="text/javascript" src="js/jquery.elevatezoom.js"></script>
     <!-- product zoom js -->
     <script type="text/javascript" src="js/jquery.ajaxchimp.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- mail chimp js -->
     <script type="text/javascript" src="js/smooth-scroll.js"></script>
     <!-- smooth scroll js -->
@@ -951,6 +971,7 @@
     <script type="text/javascript" src="js/theme.js"></script>
     <!-- custom js -->
     <!-- end jquery -->
+    <script type="text/javascript" src="./js/main.js"></script>
   </body>
   <!--body end -->
 </html>
